@@ -17,8 +17,14 @@ $stmt_delete->bind_param("i",$id);
 
 $link->autocommit(FALSE);
 $stmt_query->execute();
+$result = $stmt_query->get_result();
+$stmt_query->close();
 
-while ($stmt_query->fetch()) {
+while ($client = $result->fetch_object()) {
+  $id = $client->id;
+  $first_name = $client->first_name;
+  $cars = $client->cars;
+
   // Comprobar si cars == 0 para anular la transaccion
 
   if($cars == 0) {
